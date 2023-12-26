@@ -4,6 +4,7 @@ import com.edu.pm.backend.commons.dto.AvatarDTO;
 import com.edu.pm.backend.model.User;
 import com.edu.pm.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api")
@@ -34,6 +36,18 @@ public class AvatarController {
             String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
             String fileName = "avatar_" + user.getId() + fileExtension;
             String filePath = uploadDirectory + fileName;
+
+            File uploadDir = new File(uploadDirectory);
+            if (!uploadDir.exists()) {
+                boolean newDir = uploadDir.mkdir();
+
+                if (newDir) {
+                    log.info("Created upload avatars directory.");
+                } else {
+                    log.error("Failed to create upload avatars directory. Aborting.");
+                    return null;
+                }
+            }
 
             File existingFile = new File(filePath);
             if (existingFile.exists()) {
