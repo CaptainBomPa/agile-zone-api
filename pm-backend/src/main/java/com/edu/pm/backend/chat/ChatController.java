@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.time.LocalDateTime;
 
 @Controller
-@CrossOrigin(origins = {"http://10.0.1.64:3000", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://10.0.1.64:3000", "http://localhost:3000"}, originPatterns = "*")
 @RequiredArgsConstructor
 public class ChatController {
 
