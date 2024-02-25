@@ -1,4 +1,4 @@
-package com.edu.pm.backend.chat;
+package com.edu.pm.backend.config.auth;
 
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;

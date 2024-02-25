@@ -1,5 +1,6 @@
-package com.edu.pm.backend.config;
+package com.edu.pm.backend.config.auth;
 
+import com.edu.pm.backend.config.PMAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,8 +41,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/chat").permitAll()
                 .requestMatchers("/chat/**").permitAll()
+                .requestMatchers("/ppoker").permitAll()
+                .requestMatchers("/ppoker/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/user/add").permitAll()
+                .requestMatchers("/api/user").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

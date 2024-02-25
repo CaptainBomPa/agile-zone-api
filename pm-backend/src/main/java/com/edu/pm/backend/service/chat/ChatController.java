@@ -1,4 +1,4 @@
-package com.edu.pm.backend.chat;
+package com.edu.pm.backend.service.chat;
 
 import com.edu.pm.backend.model.Message;
 import com.edu.pm.backend.repository.MessageRepository;
@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @CrossOrigin(origins = {"http://10.0.1.64:3000", "http://localhost:3000"}, originPatterns = "*")
 @RequiredArgsConstructor
 public class ChatController {
-
     private final MessageRepository messageRepository;
 
     @MessageMapping("/send")
