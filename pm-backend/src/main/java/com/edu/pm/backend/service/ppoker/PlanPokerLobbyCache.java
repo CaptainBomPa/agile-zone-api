@@ -4,7 +4,6 @@ import com.edu.pm.backend.model.User;
 import com.edu.pm.backend.service.ppoker.messagetypes.UserVotes;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Collections;
