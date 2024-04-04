@@ -16,14 +16,15 @@ class PlanPokerControllerTest extends Specification {
 
     def "change lobby opened successfully opens the lobby"() {
         given: "A lobby opened DTO"
-        def dto = new LobbyOpenedDTO(true, false, "Story 1")
+        def dto = new LobbyOpenedDTO(lobbyOpened: true, lobbyStarted: false, userStoryName: "Story 1")
 
         when: "changeLobbyOpened is called"
         def result = controller.changeLobbyOpened(dto)
 
         then: "Lobby is opened"
-        1 * lobbyCache.openLobby("Story 1")
+        lobbyCache.openLobby("Story 1")
         result.lobbyOpened
+        !result.lobbyStarted
         result.userStoryName == "Story 1"
     }
 

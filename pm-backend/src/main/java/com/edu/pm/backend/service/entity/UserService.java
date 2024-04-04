@@ -72,15 +72,14 @@ public class UserService {
     }
 
     public void addUser(RegisterRequest registerRequest) {
-        User user = User.builder()
+        userRepository.save(User.builder()
                 .username(registerRequest.getUsername())
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .accountActivated(false)
-                .build();
-        userRepository.save(user);
+                .build());
     }
 
     public Collection<UserDTO> removeAccounts(Collection<UserDTO> userDTOS) {

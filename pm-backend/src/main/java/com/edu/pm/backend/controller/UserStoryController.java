@@ -27,7 +27,10 @@ public class UserStoryController {
         return ResponseEntity.ok(userStoryService.removeMultiple(ids));
     }
 
-    @PutMapping(value = "/userStory", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(value = "/userStory",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE}
+    )
     public ResponseEntity<UserStoryDTO> update(@RequestBody UserStoryDTO dto) {
         return ResponseEntity.ok(userStoryService.update(dto));
     }

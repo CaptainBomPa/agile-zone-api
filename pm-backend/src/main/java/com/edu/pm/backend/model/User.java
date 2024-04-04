@@ -49,17 +49,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private List<Role> roles = new ArrayList<>();
 
-    @ManyToOne
-    @Nullable
-    private Team team;
-
-    @ManyToOne
-    @Nullable
-    private Project project;
-
-    @Column
-    private boolean accountActivated;
-
     public void addRole(@NotNull Role role) {
         this.roles.add(role);
     }
@@ -70,6 +59,17 @@ public class User implements UserDetails {
             log.warn("Role {} from user {} was not removed", role, username);
         }
     }
+
+    @ManyToOne
+    @Nullable
+    private Team team;
+
+    @ManyToOne
+    @Nullable
+    private Project project;
+
+    @Column
+    private boolean accountActivated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

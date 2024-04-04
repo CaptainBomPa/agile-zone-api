@@ -40,18 +40,17 @@ public class IterationService {
      * Username is nullable. If not given, then in takes all user stories for all teams.
      */
     public Collection<UserStoryDTO> getUserStories(@Nullable String forUsername, @Nullable Integer iterationId) {
-        User forUser = userService.findByUsername(forUsername);
-        Iteration iterationToPass;
+        final User forUser = userService.findByUsername(forUsername);
+        final Iteration iterationToPass;
         if (iterationId != null) {
-            iterationToPass = repository.findById(iterationId).orElseThrow(() -> new IllegalArgumentException("Iteration was not found"));
+            iterationToPass = repository.findById(iterationId).orElseThrow(() ->
+                    new IllegalArgumentException("Iteration was not found"));
         } else {
             iterationToPass = getCurrentIteration();
         }
 
         if (forUser != null) {
-            User user = userService.findByUsername(forUsername);
-            assert user != null;
-            return formatListToDTOAndAddTasks(getUserStoriesForIterationAndTeam(iterationToPass, user.getTeam()));
+            return formatListToDTOAndAddTasks(getUserStoriesForIterationAndTeam(iterationToPass, forUser.getTeam()));
         }
         return formatListToDTOAndAddTasks(getUserStoriesForIteration(iterationToPass));
     }

@@ -5,7 +5,7 @@ import com.edu.pm.backend.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -16,12 +16,13 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ChatController {
     private final MessageRepository messageRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/send")
-    @SendTo("/topic/messages")
-    public Message receiveMessage(@Payload Message message) {
+    public void receiveMessage(@Payload Message message) {
         message.setTimestamp(LocalDateTime.now());
         messageRepository.save(message);
-        return message;
+        String destination = "/topic/" + message.getReceiver().getId() + "/messages";
+        simpMessagingTemplate.convertAndSend(destination, message);
     }
 }
